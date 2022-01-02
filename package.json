@@ -1,0 +1,26 @@
+{
+  "name": "bdtravels",
+  "version": "1.0.0",
+  "description": "Travel App",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodeomon server.js"
+  },
+  "author": "Hasnat Hasib",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "express": "^4.17.2",
+    "morgan": "^1.10.0",
+    "prettier": "^2.5.1"
+  },
+  "devDependencies": {
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0"
+  }
+}
