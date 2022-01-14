@@ -32,10 +32,10 @@ exports.getAllTour = async (req, res) => {
     }
 
     if(req.query.fields) {
-        const fields = req.query.sort.fields(',').join(' ');
-        query = query.sort(fields);
+        const fields = req.query.fields.split(',').join(' ');
+        query = query.select(fields);
     }else{
-        query = query.sort('-__v');
+        query = query.select('-__v');
     }
     
 
