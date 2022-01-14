@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable import/no-useless-path-segments */
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-unused-vars */
@@ -10,6 +11,13 @@ const fs = require ('fs');
 const Tour = require("./../models/tourModel");
 
 //const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
+
+exports.aliasTopTours = (req, res, next) => {
+    req.query.limit = '5';
+    req.query.sort = '-ratingsAverage,price',
+    req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
+    next();
+};
 
 exports.getAllTour = async (req, res) => {
 
@@ -48,7 +56,7 @@ exports.getAllTour = async (req, res) => {
     const skip = (page - 1) * limit;
 
     query = query.skip(skip).limit(limit);
-    
+
     if(req.query.page) {
         const numTours = await Tour.countDocuments();
         if(skip >= numTours) throw new Error('Page not found');
