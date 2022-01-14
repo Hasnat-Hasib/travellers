@@ -1,3 +1,4 @@
+/* eslint-disable lines-between-class-members */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable import/no-useless-path-segments */
 /* eslint-disable prettier/prettier */
@@ -9,12 +10,14 @@
 /* eslint-disable prettier/prettier */
 const fs = require ('fs');
 const Tour = require("./../models/tourModel");
+const APIFatures = require('./../utils/apiFeatures');
 
 //const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
 
+
 exports.aliasTopTours = (req, res, next) => {
     req.query.limit = '5';
-    req.query.sort = '-ratingsAverage,price',
+    req.query.sort = '-ratingsAverage,price';
     req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
     next();
 };
@@ -23,46 +26,21 @@ exports.getAllTour = async (req, res) => {
 
     
     try{
-    const queryObj = {...req.query};
-    const excludeFields = ['page', 'sort', 'limit', 'fields'];
-    excludeFields.forEach(el => delete queryObj[el]);
-
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
-
-    let query = Tour.find(JSON.parse(queryStr));
+    
     
     //Sort
-    if(req.query.sort) {
-        const sortBy = req.query.sort.split(',').join(' ');
-        query = query.sort(sortBy);
-    }else{
-        query = query.sort('-createdAt');
-    }
+    
 
     // Limiting Fields
 
-    if(req.query.fields) {
-        const fields = req.query.fields.split(',').join(' ');
-        query = query.select(fields);
-    }else{
-        query = query.select('-__v');
-    }
+    
     
     //Pagination
 
-    const page = req.query.page * 1 || 1;
-    const limit = req.query.limit * 1 || 100;
-    const skip = (page - 1) * limit;
+    
 
-    query = query.skip(skip).limit(limit);
-
-    if(req.query.page) {
-        const numTours = await Tour.countDocuments();
-        if(skip >= numTours) throw new Error('Page not found');
-    }
-
-    const tours = await query;
+    const features = new APIFatures(Tour.find(), req.query).filter().sort().paginate();
+    const tours = await features.query;
 
         
 
