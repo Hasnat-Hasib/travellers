@@ -184,10 +184,10 @@ exports.getTourStats = async (req, res) => {
             },
             {
                 $sort: {avgPrice : 1}
-            },
-            {
-                $match: {_id: { $ne: 'EASY'}}
             }
+            // {
+            //     $match: {_id: { $ne: 'EASY'}}
+            // }
         ]);
 
         res.status(201).json({
@@ -237,10 +237,11 @@ exports.getMonthlyPlan = async (req, res) => {
             },
             {
                 $sort: {numTourStarts: 1}
-            },
-            {
-                $limit: 15
             }
+            // {
+            //     $limit: 15
+            // }
+
         ]);
         res.status(200).json({
             status: 'sccess',
