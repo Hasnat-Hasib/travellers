@@ -66,33 +66,41 @@ exports.getAllTour = catchAsync(async (req, res, next) => {
 exports.getTour = catchAsync(async (req, res, next) => {
 
     
-            const tour = await Tour.findById(req.params.id);
+    const tour = await Tour.findById(req.params.id);
 
-            res.status(201).json({
-            status: 'sccess',
-            //results: tours.length,
-            data: {
-                tour
-            }
-        });
+    if (!tour) {
+    return next(new AppError('No tour found with that ID', 404));
+    }
 
-       
+    res.status(201).json({
+    status: 'sccess',
+    //results: tours.length,
+    data: {
+        tour
+    }
+    });
+
+
 });
 
 exports.updateTour = catchAsync(async (req, res, next) => {
     
-        const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true
-        });
+    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true
+    });
 
-            res.status(201).json({
-            status: 'sccess',
-            //results: tours.length,
-            data: {
-                tour
-            }
-        });
+    if (!tour) {
+    return next(new AppError('No tour found with that ID', 404));
+    }
+
+    res.status(201).json({
+    status: 'sccess',
+    //results: tours.length,
+    data: {
+        tour
+    }
+    });
 });
 
 exports.deleteTour = catchAsync(async (req, res, next) => {
@@ -101,11 +109,11 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
     if (!tour) {
         return next(new AppError('No tour found with that ID', 404));
       }
-            res.status(204).json({
-            status: 'sccess',
-            //results: tours.length,
-            data: null
-        });    
+        res.status(204).json({
+        status: 'sccess',
+        //results: tours.length,
+        data: null
+    });    
 });
 
 exports.createTour = catchAsync(async (req, res, next) => {
