@@ -19,7 +19,10 @@ if(process.env.NODE_ENV === 'development'){
 // app.post('/api/v1/tours', createTour);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
-app.get('/', (req, res) => {
-    res.send(" Hello from the server side.!!");
+app.all('*', (req, res) => {
+    res.status(404).json({
+        status: 'fail',
+        message: ` Could not find ${req.originalUrl} in this server!!`
+    }); 
 });
 module.exports = app;

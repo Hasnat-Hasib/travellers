@@ -4,7 +4,8 @@
   "description": "Travel App",
   "main": "index.js",
   "scripts": {
-    "start": "nodeomon server.js"
+    "start": "nodeomon server.js",
+    "debug": "ndb server.js"
   },
   "author": "Hasnat Hasib",
   "license": "ISC",
