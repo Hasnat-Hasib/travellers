@@ -1,3 +1,4 @@
+/* eslint-disable import/newline-after-import */
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/no-useless-path-segments */
 const express = require('express');
@@ -6,7 +7,9 @@ const userController = require('./../controllers/userController');
 const authController = require('./../controllers/authController');
 const router = express.Router();
 
-router.post('/signup', authController.sighnup);
+router.post('/signup', authController.signup);
+
+router.post('/login' , authController.login);
 
 router
 .route('/')
