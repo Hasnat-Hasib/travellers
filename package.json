@@ -4,7 +4,7 @@
   "description": "Travel App",
   "main": "index.js",
   "scripts": {
-    "serve": "nodeomon server.js",
+    "serve": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
     "debug": "ndb server.js"
   },
