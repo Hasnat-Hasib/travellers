@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const mongoose = require('mongoose');
 const slugify = require('slugify');
 // const validator = require('validator');
@@ -100,6 +101,12 @@ const tourSchema = new mongoose.Schema(
         address: String,
         description: String,
         day: Number
+      }
+    ],
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
       }
     ]
   },
